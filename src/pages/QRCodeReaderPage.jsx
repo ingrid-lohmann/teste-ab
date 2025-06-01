@@ -32,14 +32,15 @@ const QRCodeReaderPage = () => {
   }, [scanned, toast]);
 
   const handleScanFailure = useCallback((errorMessage) => {
-    toast({
-      title: 'Erro na leitura do QR Code',
-      description: errorMessage || 'Não foi possível ler o código.',
-      status: 'error',
-      duration: 2000,
-      isClosable: true,
-    });
-  }, [toast]);
+    console.log('Falha na leitura:', errorMessage);
+    // toast({
+    //   title: 'Erro na leitura do QR Code',
+    //   description: errorMessage || 'Não foi possível ler o código.',
+    //   status: 'error',
+    //   duration: 2000,
+    //   isClosable: true,
+    // });
+  }, []);
 
   const renderGenericErrorToast = useCallback((err) => {
     toast({
