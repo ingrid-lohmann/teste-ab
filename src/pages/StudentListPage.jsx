@@ -51,7 +51,7 @@ const StudentListPage = () => {
   return (
     <Box paddingBottom={20}>
       <HStack mb={6}>
-        <CheckCircle size={32} color="#38A169" />
+        <CheckCircle size={32} color="#319795" />
         <Heading as="h1" size="xl">Lista de Presença dos Escoteiros</Heading>
       </HStack>
 

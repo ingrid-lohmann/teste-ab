@@ -1,4 +1,4 @@
-import { Box, Heading, Text, Button, HStack, VStack, Table, Tr, Td, Tbody, Container, Tfoot, Th } from '@chakra-ui/react';
+import { Box, Heading, Button, HStack, VStack, Table, Tr, Td, Tbody, Container, Tfoot } from '@chakra-ui/react';
 import { ListChecks } from 'lucide-react';
 import { useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -24,7 +24,7 @@ const FeedBackPage = () => {
     <Box p={4}>
       <VStack marginBottom={20}>
         <HStack justifyContent='center'>
-          <ListChecks size={32} color="#38A169" />
+          <ListChecks size={32} color="#319795" />
           <Heading as="h1" size="xl">Lista de presença</Heading>
         </HStack>
         <Heading size="xs" color={'gray.500'}>Data: {formattedDate}</Heading>

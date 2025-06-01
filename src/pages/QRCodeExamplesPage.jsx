@@ -9,7 +9,7 @@ const QRCodeExamplesPage = () => {
   return (
     <Box paddingBottom={20}>
       <HStack mb={6} marginBottom={20} justifyContent={'center'}>
-        <QrCode size={32} color="#38A169" />
+        <QrCode size={32} color="#319795" />
         <Heading as="h1" size="xl">Exemplos de QR Codes</Heading>
       </HStack>
 

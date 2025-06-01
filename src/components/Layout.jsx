@@ -12,40 +12,57 @@ const Links = [
 const Layout = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const renderLinks = () => {
+    return (
+      Links.map(link => (
+        <Link key={link.to} to={link.to}>
+          <Button w="full" variant="ghost" colorScheme='white'>
+            {link.name}
+          </Button>
+        </Link>
+      ))
+    )
+  }
+
+  const renderOpenMenu = () => {
+    if (!isOpen) return null;
+
+    return (
+      <Box pb={4} display={{ md: 'none' }}>
+        <Stack as="nav" spacing={4}>
+          {Links.map(link => (
+            <Link key={link.to} to={link.to}>
+              <Button w="full" variant="ghost" onClick={onClose} colorScheme='white'>
+                {link.name}
+              </Button>
+            </Link>
+          ))}
+        </Stack>
+      </Box>
+    )
+  }
+
   return (
     <>
-      <Box bg="gray.100" px={4} boxShadow="sm" position="sticky" top={0} zIndex={10}>
+      <Box bg='teal' color='white' px={4} boxShadow="sm" position="sticky" top={0} zIndex={10}>
         <Flex h={16} alignItems="center" justifyContent="space-between">
           <IconButton
             size="md"
+            color='white'
             icon={isOpen ? <X /> : <Menu />}
             aria-label="Abrir menu"
             display={{ md: 'none' }}
             onClick={isOpen ? onClose : onOpen}
           />
           <HStack spacing={8} alignItems="center">
-            <Box fontWeight="bold">Meu App</Box>
+            <Box fontWeight="bold">Teste A/B</Box>
             <HStack as="nav" spacing={4} display={{ base: 'none', md: 'flex' }}>
-              {Links.map(link => (
-                <Link key={link.to} to={link.to}>
-                  <Button variant="ghost">{link.name}</Button>
-                </Link>
-              ))}
+              {renderLinks()}
             </HStack>
           </HStack>
         </Flex>
 
-        {isOpen ? (
-          <Box pb={4} display={{ md: 'none' }}>
-            <Stack as="nav" spacing={4}>
-              {Links.map(link => (
-                <Link key={link.to} to={link.to}>
-                  <Button w="full" variant="ghost">{link.name}</Button>
-                </Link>
-              ))}
-            </Stack>
-          </Box>
-        ) : null}
+        {renderOpenMenu()}
       </Box>
 
       <Box p={4}>
