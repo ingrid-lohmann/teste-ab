@@ -1,9 +1,11 @@
-import AlertInfo from '@/components/AlertInfo';
-import { Box, Button, Heading, HStack, Text, useToast } from '@chakra-ui/react';
+import { Box, Button, HStack, useToast } from '@chakra-ui/react';
 import { Html5Qrcode } from 'html5-qrcode';
-import { QrCode } from 'lucide-react';
+import { ScanQrCode } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import AlertInfo from '@/components/AlertInfo';
+import SectionHeader from '@/components/SectionHeader';
 
 const isMobile = () => {
   // eslint-disable-next-line no-undef
@@ -32,6 +34,7 @@ const QRCodeReaderPage = () => {
   }, [scanned, toast]);
 
   const handleScanFailure = useCallback((errorMessage) => {
+    // eslint-disable-next-line no-undef
     console.log('Falha na leitura:', errorMessage);
   }, []);
 
@@ -60,6 +63,7 @@ const QRCodeReaderPage = () => {
         handleScanFailure
       );
     } catch (err) {
+      // eslint-disable-next-line no-undef
       console.error('Erro ao iniciar a câmera:', err);
       renderGenericErrorToast(err)
     }
@@ -70,6 +74,7 @@ const QRCodeReaderPage = () => {
       await html5QrCodeRef.current?.stop();
       await html5QrCodeRef.current?.clear();
     } catch (err) {
+      // eslint-disable-next-line no-undef
       console.warn('Erro ao parar o scanner:', err);
     }
   };
@@ -128,11 +133,7 @@ const QRCodeReaderPage = () => {
 
   return (
     <Box p={4}>
-      <HStack mb={6} marginBottom={20} justifyContent={'center'}>
-        <QrCode size={32} color="#319795" />
-        <Heading as="h1" size="xl">Leitor QR Code</Heading>
-      </HStack>
-
+      <SectionHeader title='Leitor QR Code' icon={ScanQrCode} />
       {renderAlertInfo()}
     </Box>
   );

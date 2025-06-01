@@ -1,17 +1,16 @@
-import QRCodeItem from '@/components/QRCodeItem';
-import { Box, Heading, HStack, SimpleGrid, } from '@chakra-ui/react';
-import { ScanQrCode, QrCode } from 'lucide-react';
+import { Box, SimpleGrid, } from '@chakra-ui/react';
+import { QrCode } from 'lucide-react';
 
 import { students } from './mock-list';
+
+import QRCodeItem from '@/components/QRCodeItem';
+import SectionHeader from '@/components/SectionHeader';
 
 const QRCodeExamplesPage = () => {
 
   return (
     <Box paddingBottom={20}>
-      <HStack mb={6} marginBottom={20} justifyContent={'center'}>
-        <QrCode size={32} color="#319795" />
-        <Heading as="h1" size="xl">Exemplos de QR Codes</Heading>
-      </HStack>
+      <SectionHeader title='Exemplos de QR Codes' icon={QrCode} />
 
       <SimpleGrid columns={{ base: 1, md: 2, lg: 3, xl: 4 }} spacing={10}>
         {students.map(student => (

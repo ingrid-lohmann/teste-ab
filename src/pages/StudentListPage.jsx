@@ -1,11 +1,11 @@
-import { Button, Checkbox, Heading, HStack, Text, VStack, useToast, Box, SimpleGrid, ButtonGroup } from '@chakra-ui/react';
+import { Button, Checkbox, Text, useToast, Box, ButtonGroup, Tbody, Tr, Td, Table } from '@chakra-ui/react';
 import { CheckCircle } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { students } from './mock-list';
 
-
+import SectionHeader from '@/components/SectionHeader';
 
 const StudentListPage = () => {
   const toast = useToast();
@@ -48,31 +48,47 @@ const StudentListPage = () => {
     });
   }
 
+  const renderCheckBox = (item) => {
+    return (
+      <Checkbox
+        colorScheme='teal'
+        key={item.id}
+        isChecked={!!checkedItems[item.name]}
+        onChange={() => handleCheckboxChange(item.name)}
+      >
+        <Text fontSize="lg" as={'b'}>{item.name}</Text>
+      </Checkbox>
+    )
+  }
+
+  const renderTable = () => {
+    return (
+      <Table variant='striped' colorScheme={'gray'}>
+        <Tbody>
+          {students.map((student, index) => (
+            <Tr key={index}>
+              <Td>
+                {renderCheckBox(student)}
+              </Td>
+            </Tr>
+          ))}
+        </Tbody>
+      </Table>
+    )
+  }
+
   return (
     <Box paddingBottom={20}>
-      <HStack mb={6}>
-        <CheckCircle size={32} color="#319795" />
-        <Heading as="h1" size="xl">Lista de Presença dos Escoteiros</Heading>
-      </HStack>
+      <SectionHeader title='Lista de Presença dos Escoteiros' icon={CheckCircle} />
 
-      <VStack align="start" spacing={6} cursor={'pointer'}>
-        {students.map(student => (
-          <Checkbox
-            key={student.id}
-            isChecked={!!checkedItems[student.name]}
-            onChange={() => handleCheckboxChange(student.name)}
-          >
-            <Text fontSize="lg" as={'b'}>{student.name}</Text>
-          </Checkbox>
-        ))}
-      </VStack>
+      {renderTable()}
 
       <ButtonGroup spacing='6' marginTop={4}>
-        <Button mt={6} colorScheme="green" onClick={handleSubmit}>
+        <Button mt={6} colorScheme="teal" onClick={handleSubmit}>
           Confirmar Presença
         </Button>
 
-        <Button mt={6} colorScheme="red" onClick={handleReset}>
+        <Button mt={6} colorScheme="gray" onClick={handleReset}>
           Limpar seleção
         </Button>
       </ButtonGroup>
