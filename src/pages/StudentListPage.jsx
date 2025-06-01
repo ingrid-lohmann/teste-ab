@@ -1,6 +1,7 @@
 import { Button, Checkbox, Heading, HStack, Text, VStack, useToast, Box, SimpleGrid, ButtonGroup } from '@chakra-ui/react';
 import { CheckCircle } from 'lucide-react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { students } from './mock-list';
 
@@ -8,6 +9,7 @@ import { students } from './mock-list';
 
 const StudentListPage = () => {
   const toast = useToast();
+  const navigate = useNavigate();
   const [checkedItems, setCheckedItems] = useState({});
 
   const handleCheckboxChange = (name) => {
@@ -31,6 +33,8 @@ const StudentListPage = () => {
       duration: 4000,
       isClosable: true,
     });
+
+    navigate('/feedback', { state: { students: presentScouts } });
   }
 
   const handleReset = () => {
