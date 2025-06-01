@@ -48,7 +48,8 @@ const Layout = () => {
         <Flex h={16} alignItems="center" justifyContent="space-between">
           <IconButton
             size="md"
-            color='white'
+            variant='link'
+            colorScheme='white'
             icon={isOpen ? <X /> : <Menu />}
             aria-label="Abrir menu"
             display={{ md: 'none' }}
