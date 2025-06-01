@@ -1,3 +1,4 @@
+import SectionHeader from '@/components/SectionHeader';
 import { Button, Checkbox, Text, useToast, Box, ButtonGroup, Tbody, Tr, Td, Table } from '@chakra-ui/react';
 import { CheckCircle } from 'lucide-react';
 import { useState } from 'react';
@@ -5,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 
 import { students } from './mock-list';
 
-import SectionHeader from '@/components/SectionHeader';
 
 const StudentListPage = () => {
   const toast = useToast();
@@ -41,9 +41,10 @@ const StudentListPage = () => {
     setCheckedItems({});
 
     toast({
-      title: 'Seleção limpa com sucesso',
-      status: 'success',
-      duration: 4000,
+      title: 'Lista limpa',
+      description: 'Todos os registros foram removidos.',
+      status: 'info',
+      duration: 3000,
       isClosable: true,
     });
   }
@@ -85,10 +86,10 @@ const StudentListPage = () => {
 
       <ButtonGroup spacing='6' marginTop={4}>
         <Button mt={6} colorScheme="teal" onClick={handleSubmit}>
-          Confirmar Presença
+          Confirmar presenças
         </Button>
 
-        <Button mt={6} colorScheme="gray" onClick={handleReset}>
+        <Button mt={6} colorScheme="red" variant='outline' onClick={handleReset}>
           Limpar seleção
         </Button>
       </ButtonGroup>

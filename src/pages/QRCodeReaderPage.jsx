@@ -1,11 +1,11 @@
+import AlertInfo from '@/components/AlertInfo';
+import SectionHeader from '@/components/SectionHeader';
 import { Box, Button, HStack, useToast } from '@chakra-ui/react';
 import { Html5Qrcode } from 'html5-qrcode';
 import { ScanQrCode } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import AlertInfo from '@/components/AlertInfo';
-import SectionHeader from '@/components/SectionHeader';
 
 const isMobile = () => {
   // eslint-disable-next-line no-undef
@@ -79,6 +79,17 @@ const QRCodeReaderPage = () => {
     }
   };
 
+  const handleClearScanned = () => {
+    setScanned([]);
+    toast({
+      title: 'Lista limpa',
+      description: 'Todos os registros foram removidos.',
+      status: 'info',
+      duration: 3000,
+      isClosable: true,
+    });
+  };
+
   useEffect(() => {
     setIsMobileDevice(isMobile());
   }, []);
@@ -96,6 +107,28 @@ const QRCodeReaderPage = () => {
   const handleConfirm = () => {
     navigate('/feedback', { state: { students: scanned } });
   };
+
+  const renderButtons = () => {
+    return (
+      <HStack mt={6} spacing={4} justify="center">
+        <Button
+          colorScheme="green"
+          onClick={handleConfirm}
+          isDisabled={scanned.length === 0}
+        >
+          Confirmar presenças
+        </Button>
+        <Button
+          variant="outline"
+          colorScheme="red"
+          onClick={handleClearScanned}
+          isDisabled={scanned.length === 0}
+        >
+          Limpar lista
+        </Button>
+      </HStack>
+    )
+  }
 
   const renderAlertInfo = () => {
     if (!isMobileDevice) {
@@ -119,14 +152,7 @@ const QRCodeReaderPage = () => {
           borderRadius="md"
           overflow="hidden"
         />
-        <Button
-          mt={6}
-          colorScheme="green"
-          onClick={handleConfirm}
-          isDisabled={scanned.length === 0}
-        >
-          Confirmar Presenças
-        </Button>
+        {renderButtons()}
       </>
     )
   }

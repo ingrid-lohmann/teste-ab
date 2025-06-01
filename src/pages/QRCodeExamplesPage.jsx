@@ -1,10 +1,10 @@
+import QRCodeItem from '@/components/QRCodeItem';
+import SectionHeader from '@/components/SectionHeader';
 import { Box, SimpleGrid, } from '@chakra-ui/react';
 import { QrCode } from 'lucide-react';
 
 import { students } from './mock-list';
 
-import QRCodeItem from '@/components/QRCodeItem';
-import SectionHeader from '@/components/SectionHeader';
 
 const QRCodeExamplesPage = () => {
 
