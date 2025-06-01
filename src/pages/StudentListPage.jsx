@@ -1,4 +1,4 @@
-import { Button, Checkbox, Heading, HStack, Text, VStack, useToast, Box, SimpleGrid } from '@chakra-ui/react';
+import { Button, Checkbox, Heading, HStack, Text, VStack, useToast, Box, SimpleGrid, ButtonGroup } from '@chakra-ui/react';
 import { CheckCircle } from 'lucide-react';
 import { useState } from 'react';
 
@@ -51,7 +51,7 @@ const StudentListPage = () => {
         <Heading as="h1" size="xl">Lista de Presença dos Escoteiros</Heading>
       </HStack>
 
-      <VStack align="start" spacing={6} cursor={'pointer'} backgroundColor={'mistyrose'}>
+      <VStack align="start" spacing={6} cursor={'pointer'}>
         {students.map(student => (
           <Checkbox
             key={student.id}
@@ -63,7 +63,7 @@ const StudentListPage = () => {
         ))}
       </VStack>
 
-      <SimpleGrid columns={{ base: 4, md: 2 }} spacing={10}>
+      <ButtonGroup spacing='6' marginTop={4}>
         <Button mt={6} colorScheme="green" onClick={handleSubmit}>
           Confirmar Presença
         </Button>
@@ -71,7 +71,7 @@ const StudentListPage = () => {
         <Button mt={6} colorScheme="red" onClick={handleReset}>
           Limpar seleção
         </Button>
-      </SimpleGrid>
+      </ButtonGroup>
 
     </Box>
   );

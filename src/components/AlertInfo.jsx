@@ -3,11 +3,11 @@ import { AlertCircleIcon } from 'lucide-react'
 
 const AlertInfo = () => {
   return (
-    <Alert status="info" flexDirection="column" alignItems="center" justifyContent="center" textAlign="center" borderRadius="md" p={4}>
+    <Alert status="info" flexDirection="column" alignItems="center" justifyContent="center" textAlign="center" borderRadius="md" p={4} width='md'>
       <AlertCircleIcon size={40} mr={0} />
       <AlertTitle mt={4} mb={1} fontSize="lg">Atenção!</AlertTitle>
       <AlertDescription maxWidth="sm">
-        Acesso à câmera requer permissão do navegador e, em produção, geralmente funciona apenas em **HTTPS**
+        Por favor, acesse esta página usando um celular para registrar a presença.
       </AlertDescription>
     </Alert>
   )
