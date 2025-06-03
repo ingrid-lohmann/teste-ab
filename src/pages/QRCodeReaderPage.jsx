@@ -13,14 +13,23 @@ const isMobile = () => {
 }
 
 const QRCodeReaderPage = () => {
+  const toast = useToast();
+  const navigate = useNavigate();
   const scannerRef = useRef(null);
+  const lastScanTimeRef = useRef(0);
   const html5QrCodeRef = useRef(null);
   const [scanned, setScanned] = useState([]);
   const [isMobileDevice, setIsMobileDevice] = useState(true);
-  const toast = useToast();
-  const navigate = useNavigate();
 
   const handleScanSuccess = useCallback((decodedText) => {
+    const now = Date.now();
+    if (now - lastScanTimeRef.current < 2000) {
+      return; // Ignora leitura se for muito rápida
+    }
+
+    lastScanTimeRef.current = now;
+
+
     if (!scanned.includes(decodedText)) {
       setScanned((prev) => [...prev, decodedText]);
       toast({
