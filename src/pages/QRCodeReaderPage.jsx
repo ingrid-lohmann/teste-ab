@@ -165,15 +165,10 @@ const QRCodeReaderPage = () => {
     )
   }, [initializeScanner])
 
-  const handleStartScanner = useCallback(() => {
+  const handleStartScanner = async () => {
     setScannerStarted(true);
-  }, []);
-
-  useEffect(() => {
-    if (scannerStarted && scannerRef.current) {
-      initializeScanner();
-    }
-  }, [scannerStarted, initializeScanner]);
+    await initializeScanner();
+  };
 
   const renderAlertInfo = () => {
     if (!isMobileDevice) {
