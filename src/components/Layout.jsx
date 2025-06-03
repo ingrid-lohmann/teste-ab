@@ -1,5 +1,6 @@
 import { Box, Flex, HStack, IconButton, useDisclosure, Stack, Button } from '@chakra-ui/react';
 import { X, Menu } from 'lucide-react';
+import { useCallback } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 
 const FORM_LINK = "https://forms.gle/h3iK3nsHXhn5sVVXA";
@@ -15,6 +16,12 @@ const Links = [
 const Layout = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const handleLinkClick = useCallback(() => {
+    // eslint-disable-next-line no-undef
+    sessionStorage.removeItem('checkedItems');
+    onClose();
+  }, [onClose])
+
   const renderExternalButtonLink = (link) => {
     return (
       <Button
@@ -26,6 +33,7 @@ const Layout = () => {
         w="full"
         variant="ghost"
         colorScheme='white'
+        onClick={handleLinkClick}
       >
         {link.name}
       </Button>
@@ -36,7 +44,7 @@ const Layout = () => {
     if (link.isExternal) return renderExternalButtonLink(link)
     return (
       <Link key={link.to} to={link.to}>
-        <Button w="full" variant="ghost" colorScheme='white'>
+        <Button w="full" variant="ghost" colorScheme='white' onClick={handleLinkClick}>
           {link.name}
         </Button>
       </Link>
@@ -60,7 +68,7 @@ const Layout = () => {
         <Stack as="nav" spacing={4}>
           {Links.map(link => (
             <Link key={link.to} to={link.to}>
-              <Button w="full" variant="ghost" onClick={onClose} colorScheme='white'>
+              <Button w="full" variant="ghost" onClick={handleLinkClick} colorScheme='white'>
                 {link.name}
               </Button>
             </Link>
