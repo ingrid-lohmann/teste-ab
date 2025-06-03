@@ -1,5 +1,4 @@
 import AlertInfo from '@/components/AlertInfo';
-import Footer from '@/components/Footer';
 import PageLayout from '@/components/PageLayout';
 import SectionHeader from '@/components/SectionHeader';
 import { Box, Button, HStack, useToast } from '@chakra-ui/react';
@@ -7,7 +6,6 @@ import { Html5Qrcode } from 'html5-qrcode';
 import { ScanQrCode } from 'lucide-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 
 const isMobile = () => {
   // eslint-disable-next-line no-undef

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { readFileSync } from 'fs';
 
 import js from '@eslint/js';

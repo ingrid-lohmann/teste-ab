@@ -1,11 +1,12 @@
-import PageLayout from '@/components/PageLayout';
-import SectionHeader from '@/components/SectionHeader';
-import { Button, Checkbox, Text, useToast, Box, ButtonGroup, Tbody, Tr, Td, Table } from '@chakra-ui/react';
+import { Button, Checkbox, Text, useToast, Box, Tbody, Tr, Td, Table, Stack } from '@chakra-ui/react';
 import { LayoutList } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { students } from './mock-list';
+
+import PageLayout from '@/components/PageLayout';
+import SectionHeader from '@/components/SectionHeader';
 
 
 const StudentListPage = () => {
@@ -100,15 +101,15 @@ const StudentListPage = () => {
 
         {renderTable()}
 
-        <ButtonGroup spacing='6' marginTop={4}>
-          <Button mt={6} colorScheme="teal" onClick={handleSubmit}>
+        <Stack spacing='6' mt={8} direction={{ base: 'column', md: 'row' }} >
+          <Button colorScheme="teal" onClick={handleSubmit}>
             Confirmar presenças
           </Button>
 
-          <Button mt={6} colorScheme="red" variant='outline' onClick={handleReset}>
+          <Button colorScheme="red" variant='outline' onClick={handleReset}>
             Limpar seleção
           </Button>
-        </ButtonGroup>
+        </Stack>
 
       </Box>
     </PageLayout>

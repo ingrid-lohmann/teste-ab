@@ -1,7 +1,6 @@
-import Footer from '@/components/Footer';
 import PageLayout from '@/components/PageLayout';
 import { Box, Heading, Text, Stack, HStack, Highlight, Button, Divider } from '@chakra-ui/react';
-import { Bug, LayoutList, ScanQrCode } from 'lucide-react';
+import { LayoutList, ScanQrCode } from 'lucide-react';
 
 const highlightStyle = { px: '1', py: '1', rounded: 'full', bg: 'teal.100' }
 
