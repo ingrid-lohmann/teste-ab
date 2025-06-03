@@ -1,6 +1,6 @@
 import SectionHeader from '@/components/SectionHeader';
 import { Button, Checkbox, Text, useToast, Box, ButtonGroup, Tbody, Tr, Td, Table } from '@chakra-ui/react';
-import { CheckCircle } from 'lucide-react';
+import { LayoutList } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -80,7 +80,7 @@ const StudentListPage = () => {
 
   return (
     <Box paddingBottom={20}>
-      <SectionHeader title='Lista de Presença dos Escoteiros' icon={CheckCircle} />
+      <SectionHeader title='Lista de Presença dos Escoteiros' icon={LayoutList} />
 
       {renderTable()}
 

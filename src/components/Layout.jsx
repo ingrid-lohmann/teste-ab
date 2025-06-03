@@ -2,25 +2,53 @@ import { Box, Flex, HStack, IconButton, useDisclosure, Stack, Button } from '@ch
 import { X, Menu } from 'lucide-react';
 import { Link, Outlet } from 'react-router-dom';
 
+const FORM_LINK = "https://forms.gle/h3iK3nsHXhn5sVVXA";
+
 const Links = [
   { name: 'Sobre', to: '/' },
   { name: 'Ler QR Code', to: '/qr-code-reader' },
   { name: 'Exemplos de QR Code', to: '/qr-code-exemples' },
-  { name: 'Lista de presença', to: '/lista-alunos' }
+  { name: 'Lista de presença', to: '/lista-alunos' },
+  { name: 'Feedback do Teste', to: FORM_LINK, isExternal: true }
 ];
 
 const Layout = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const renderExternalButtonLink = (link) => {
+    return (
+      <Button
+        key={link.to}
+        as="a"
+        href={link.to}
+        target="_blank"
+        rel="noopener noreferrer"
+        w="full"
+        variant="ghost"
+        colorScheme='white'
+      >
+        {link.name}
+      </Button>
+    )
+  }
+
+  const renderLink = (link) => {
+    if (link.isExternal) return renderExternalButtonLink(link)
+    return (
+      <Link key={link.to} to={link.to}>
+        <Button w="full" variant="ghost" colorScheme='white'>
+          {link.name}
+        </Button>
+      </Link>
+    )
+  }
+
+
   const renderLinks = () => {
     return (
-      Links.map(link => (
-        <Link key={link.to} to={link.to}>
-          <Button w="full" variant="ghost" colorScheme='white'>
-            {link.name}
-          </Button>
-        </Link>
-      ))
+      Links.map(link => {
+        return renderLink(link);
+      })
     )
   }
 
