@@ -114,13 +114,13 @@ const QRCodeReaderPage = () => {
 
   useEffect(() => {
     if (isMobileDevice && scannerRef.current) {
-      renderInitializeButton();
+      initializeScanner();
     }
 
     return () => {
       stopScanner();
     };
-  }, [isMobileDevice, renderInitializeButton]);
+  }, [isMobileDevice, initializeScanner]);
 
   const handleConfirm = () => {
     navigate('/feedback', { state: { students: scanned } });
