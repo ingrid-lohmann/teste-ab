@@ -1,11 +1,11 @@
 import { Box, Heading, Text, Stack, HStack, Highlight, Button, Divider } from '@chakra-ui/react';
 import { LayoutList, ScanQrCode } from 'lucide-react';
 
-const highlightStyle = { px: '2', py: '1', rounded: 'full', bg: 'teal.100' }
+const highlightStyle = { px: '1', py: '1', rounded: 'full', bg: 'teal.100' }
 
 const HomePage = () => {
 
-  const TextWithHighlight = (text, words) => {
+  const textWithHighlight = (text, words) => {
     return (
       <Text fontSize="md">
         <Highlight
@@ -56,7 +56,7 @@ const HomePage = () => {
             Chamada por QR Code
           </Heading>
         </HStack>
-        {TextWithHighlight(text, 'escanear um QR Code')}
+        {textWithHighlight(text, 'escanear um QR Code')}
         <Text>
           Ah, e para você testar à vontade, temos uma {' '}
           <Button colorScheme='teal' variant='link'>
@@ -100,13 +100,15 @@ const HomePage = () => {
             Chamada por Lista
           </Heading>
         </HStack>
-        {TextWithHighlight(text, 'lista digital com todos os nomes')}
+        {textWithHighlight(text, 'lista digital com todos os nomes')}
       </>
 
     )
   }
 
   const renderImportantInfo = () => {
+    const text = 'Nosso objetivo é que a chamada de presença seja sempre rápida, sem erros e fácil de usar.'
+    const queryWords = ['rápida', 'sem erros', 'fácil de usar']
     return (
       <>
         <Text fontSize="md">
@@ -117,10 +119,8 @@ const HomePage = () => {
 
         {renderFormLink()}
 
-        <Text fontSize="md">
-          Nosso objetivo é que a chamada de presença seja sempre
-          {highlightWord('rápida, sem erros e super fácil de usar.')}
-        </Text>
+        {textWithHighlight(text, queryWords)}
+
         <Text>
           A sua experiência ao testar estas duas opções será essencial para nos ajudar a decidir qual delas se encaixa melhor nas atividades escoteiras.
         </Text>
