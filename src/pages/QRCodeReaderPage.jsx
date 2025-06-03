@@ -20,6 +20,7 @@ const QRCodeReaderPage = () => {
   const html5QrCodeRef = useRef(null);
   const [scanned, setScanned] = useState([]);
   const [isMobileDevice, setIsMobileDevice] = useState(true);
+  const [scannerStarted, setScannerStarted] = useState(false);
 
   const vibrateDevice = (duration) => {
     // eslint-disable-next-line no-undef
@@ -156,6 +157,19 @@ const QRCodeReaderPage = () => {
     )
   }
 
+  const renderInitializeButton = useCallback(() => {
+    return (
+      <Button colorScheme="teal" onClick={initializeScanner}>
+        Iniciar leitura
+      </Button>
+    )
+  }, [initializeScanner])
+
+  const handleStartScanner = async () => {
+    setScannerStarted(true);
+    await initializeScanner();
+  };
+
   const renderAlertInfo = () => {
     if (!isMobileDevice) {
       return (
@@ -167,18 +181,28 @@ const QRCodeReaderPage = () => {
 
     return (
       <>
-        <Box
-          id="reader"
-          ref={scannerRef}
-          w="100%"
-          maxW="400px"
-          m="auto"
-          border="2px"
-          borderColor="gray.300"
-          borderRadius="md"
-          overflow="hidden"
-        />
-        {renderButtons()}
+        {!scannerStarted ? (
+          <HStack justify="center" mt={6}>
+            <Button colorScheme="teal" onClick={handleStartScanner}>
+              Iniciar Leitura
+            </Button>
+          </HStack>
+        ) : (
+          <>
+            <Box
+              m="auto"
+              w="100%"
+              id="reader"
+              maxW="400px"
+              border="2px"
+              ref={scannerRef}
+              borderRadius="md"
+              overflow="hidden"
+              borderColor="gray.300"
+            />
+            {renderButtons()}
+          </>
+        )}
       </>
     )
   }
