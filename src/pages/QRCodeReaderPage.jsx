@@ -29,26 +29,33 @@ const QRCodeReaderPage = () => {
     }
   };
 
-
   const handleScanSuccess = useCallback((decodedText) => {
     const now = Date.now();
     if (now - lastScanTimeRef.current < 2000) {
-      return; // Ignora leitura se for muito rápida
+      return;
     }
 
     lastScanTimeRef.current = now;
 
-
     if (!scanned.includes(decodedText)) {
       setScanned((prev) => [...prev, decodedText]);
       toast({
-        title: 'Presença registrada',
-        description: decodedText,
-        status: 'success',
         duration: 3000,
         isClosable: true,
+        status: 'success',
+        description: decodedText,
+        title: 'Presença registrada',
       });
       vibrateDevice(200);
+    } else {
+      toast({
+        duration: 2000,
+        isClosable: true,
+        status: 'warning',
+        description: decodedText,
+        title: 'QR Code já registrado',
+      });
+      vibrateDevice(100);
     }
   }, [scanned, toast]);
 
