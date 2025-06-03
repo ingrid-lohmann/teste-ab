@@ -130,6 +130,17 @@ const QRCodeReaderPage = () => {
     };
   }, [initializeScanner, isMobileDevice]);
 
+  useEffect(() => {
+    // eslint-disable-next-line no-undef
+    const saved = sessionStorage.getItem('scanned');
+    if (saved) setScanned(JSON.parse(saved));
+  }, []);
+
+  useEffect(() => {
+    // eslint-disable-next-line no-undef
+    sessionStorage.setItem('scanned', JSON.stringify(scanned));
+  }, [scanned]);
+
   const handleConfirm = () => {
     navigate('/feedback', { state: { students: scanned } });
   };
