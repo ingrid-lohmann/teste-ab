@@ -21,6 +21,15 @@ const QRCodeReaderPage = () => {
   const [scanned, setScanned] = useState([]);
   const [isMobileDevice, setIsMobileDevice] = useState(true);
 
+  const vibrateDevice = (duration) => {
+    // eslint-disable-next-line no-undef
+    if (navigator.vibrate) {
+      // eslint-disable-next-line no-undef
+      navigator.vibrate(duration);
+    }
+  };
+
+
   const handleScanSuccess = useCallback((decodedText) => {
     const now = Date.now();
     if (now - lastScanTimeRef.current < 2000) {
@@ -39,6 +48,7 @@ const QRCodeReaderPage = () => {
         duration: 3000,
         isClosable: true,
       });
+      vibrateDevice(200);
     }
   }, [scanned, toast]);
 
