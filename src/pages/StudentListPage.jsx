@@ -1,7 +1,8 @@
+import PageLayout from '@/components/PageLayout';
 import SectionHeader from '@/components/SectionHeader';
 import { Button, Checkbox, Text, useToast, Box, ButtonGroup, Tbody, Tr, Td, Table } from '@chakra-ui/react';
 import { LayoutList } from 'lucide-react';
-import { useState , useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { students } from './mock-list';
@@ -93,22 +94,24 @@ const StudentListPage = () => {
   }
 
   return (
-    <Box paddingBottom={20}>
-      <SectionHeader title='Lista de Presença dos Escoteiros' icon={LayoutList} />
+    <PageLayout>
+      <Box paddingBottom={10}>
+        <SectionHeader title='Lista de Presença dos Escoteiros' icon={LayoutList} />
 
-      {renderTable()}
+        {renderTable()}
 
-      <ButtonGroup spacing='6' marginTop={4}>
-        <Button mt={6} colorScheme="teal" onClick={handleSubmit}>
-          Confirmar presenças
-        </Button>
+        <ButtonGroup spacing='6' marginTop={4}>
+          <Button mt={6} colorScheme="teal" onClick={handleSubmit}>
+            Confirmar presenças
+          </Button>
 
-        <Button mt={6} colorScheme="red" variant='outline' onClick={handleReset}>
-          Limpar seleção
-        </Button>
-      </ButtonGroup>
+          <Button mt={6} colorScheme="red" variant='outline' onClick={handleReset}>
+            Limpar seleção
+          </Button>
+        </ButtonGroup>
 
-    </Box>
+      </Box>
+    </PageLayout>
   );
 }
 

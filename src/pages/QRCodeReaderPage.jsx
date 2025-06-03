@@ -1,4 +1,6 @@
 import AlertInfo from '@/components/AlertInfo';
+import Footer from '@/components/Footer';
+import PageLayout from '@/components/PageLayout';
 import SectionHeader from '@/components/SectionHeader';
 import { Box, Button, HStack, useToast } from '@chakra-ui/react';
 import { Html5Qrcode } from 'html5-qrcode';
@@ -184,10 +186,12 @@ const QRCodeReaderPage = () => {
   }
 
   return (
-    <Box p={4}>
-      <SectionHeader title='Leitor QR Code' icon={ScanQrCode} />
-      {renderAlertInfo()}
-    </Box>
+    <PageLayout>
+      <Box p={4}>
+        <SectionHeader title='Leitor QR Code' icon={ScanQrCode} />
+        {renderAlertInfo()}
+      </Box>
+    </PageLayout>
   );
 }
 

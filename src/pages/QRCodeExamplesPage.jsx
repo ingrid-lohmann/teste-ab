@@ -1,3 +1,4 @@
+import PageLayout from '@/components/PageLayout';
 import QRCodeItem from '@/components/QRCodeItem';
 import SectionHeader from '@/components/SectionHeader';
 import { Box, SimpleGrid, } from '@chakra-ui/react';
@@ -9,15 +10,17 @@ import { students } from './mock-list';
 const QRCodeExamplesPage = () => {
 
   return (
-    <Box paddingBottom={20}>
-      <SectionHeader title='Exemplos de QR Codes' icon={QrCode} />
+    <PageLayout>
+      <Box paddingBottom={10}>
+        <SectionHeader title='Exemplos de QR Codes' icon={QrCode} />
 
-      <SimpleGrid columns={{ base: 1, md: 2, lg: 3, xl: 4 }} spacing={10}>
-        {students.map(student => (
-          <QRCodeItem value={student.name} key={student.id} />
-        ))}
-      </SimpleGrid>
-    </Box>
+        <SimpleGrid columns={{ base: 1, md: 2, lg: 3, xl: 4 }} spacing={10}>
+          {students.map(student => (
+            <QRCodeItem value={student.name} key={student.id} />
+          ))}
+        </SimpleGrid>
+      </Box>
+    </PageLayout>
   );
 }
 

@@ -1,5 +1,7 @@
+import Footer from '@/components/Footer';
+import PageLayout from '@/components/PageLayout';
 import { Box, Heading, Text, Stack, HStack, Highlight, Button, Divider } from '@chakra-ui/react';
-import { LayoutList, ScanQrCode } from 'lucide-react';
+import { Bug, LayoutList, ScanQrCode } from 'lucide-react';
 
 const highlightStyle = { px: '1', py: '1', rounded: 'full', bg: 'teal.100' }
 
@@ -128,7 +130,8 @@ const HomePage = () => {
     )
   }
 
-  return (
+  const renderContent = () => {
+    return (
     <Box maxW="3xl" mx="auto" py={8} p={4}>
       <Stack spacing={6}>
         <Heading size="xl" textAlign="center" mb={4}>
@@ -160,6 +163,13 @@ const HomePage = () => {
       </Stack>
     </Box>
   );
+  }
+
+  return (
+    <PageLayout>
+      {renderContent()}
+    </PageLayout>
+  )
 }
 
 export default HomePage;
