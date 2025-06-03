@@ -61,7 +61,7 @@ const QRCodeReaderPage = () => {
 
   const initializeScanner = useCallback(async () => {
     try {
-      html5QrCodeRef.current = new Html5Qrcode(scannerRef.current.id);
+      html5QrCodeRef.current = new Html5Qrcode("reader");
       const devices = await Html5Qrcode.getCameras();
 
       const backCamera =
@@ -103,8 +103,13 @@ const QRCodeReaderPage = () => {
 
   const handleStartScanner = useCallback(async () => {
     setScannerStarted(true);
-    await initializeScanner();
-  }, [initializeScanner])
+  }, [])
+
+  useEffect(() => {
+    if (scannerStarted) {
+      initializeScanner();
+    }
+  }, [initializeScanner, scannerStarted]);
 
   useEffect(() => {
     setIsMobileDevice(isMobile());
