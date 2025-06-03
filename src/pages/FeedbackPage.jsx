@@ -17,8 +17,29 @@ const FeedBackPage = () => {
   });
 
   const handleNavigate = useCallback(() => {
-    navigate('/')
-  }, [navigate])
+    // eslint-disable-next-line no-undef
+    sessionStorage.removeItem('checkedItems');
+    // eslint-disable-next-line no-undef
+    sessionStorage.removeItem('scanned');
+    navigate('/');
+  }, [navigate]);
+
+  const handleGoBack = useCallback(() => {
+    navigate(-1);
+  }, [navigate]);
+
+  const renderButtons = () => {
+    return (
+      <VStack>
+        <Button colorScheme='teal' mt={6} onClick={handleNavigate} w='full'>
+          Finalizar
+        </Button>
+        <Button colorScheme='teal' variant='ghost' onClick={handleGoBack} w='full'>
+          Voltar
+        </Button>
+      </VStack>
+    )
+  }
 
   return (
     <Box p={4}>
@@ -45,11 +66,7 @@ const FeedBackPage = () => {
             </Tr>
           </Tfoot>
         </Table>
-        <VStack>
-          <Button colorScheme='teal' mt={6} onClick={handleNavigate} w='full'>
-            Finalizar
-          </Button>
-        </VStack>
+        {renderButtons()}
       </Container>
 
 

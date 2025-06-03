@@ -1,7 +1,7 @@
 import SectionHeader from '@/components/SectionHeader';
 import { Button, Checkbox, Text, useToast, Box, ButtonGroup, Tbody, Tr, Td, Table } from '@chakra-ui/react';
 import { LayoutList } from 'lucide-react';
-import { useState } from 'react';
+import { useState , useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { students } from './mock-list';
@@ -10,7 +10,19 @@ import { students } from './mock-list';
 const StudentListPage = () => {
   const toast = useToast();
   const navigate = useNavigate();
-  const [checkedItems, setCheckedItems] = useState({});
+
+  const saveStorage = () => {
+    // eslint-disable-next-line no-undef
+    const saved = sessionStorage.getItem('checkedItems');
+    return saved ? JSON.parse(saved) : {};
+  }
+
+  const [checkedItems, setCheckedItems] = useState(saveStorage);
+
+  useEffect(() => {
+    // eslint-disable-next-line no-undef
+    sessionStorage.setItem('checkedItems', JSON.stringify(checkedItems));
+  }, [checkedItems]);
 
   const handleCheckboxChange = (name) => {
     setCheckedItems(prev => ({
@@ -39,6 +51,8 @@ const StudentListPage = () => {
 
   const handleReset = () => {
     setCheckedItems({});
+    // eslint-disable-next-line no-undef
+    sessionStorage.removeItem('checkedItems');
 
     toast({
       title: 'Lista limpa',

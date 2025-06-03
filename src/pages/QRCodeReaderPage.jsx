@@ -20,13 +20,14 @@ const QRCodeReaderPage = () => {
   const html5QrCodeRef = useRef(null);
   const [scanned, setScanned] = useState([]);
   const [isMobileDevice, setIsMobileDevice] = useState(true);
+  const [scannerStarted, setScannerStarted] = useState(false);
 
   const handleScanSuccess = useCallback((decodedText) => {
     const now = Date.now();
     const scanCooldown = 2000;
 
     if (now - lastScanTimeRef.current < scanCooldown) {
-      return; 
+      return;
     }
 
     lastScanTimeRef.current = now;
@@ -100,17 +101,14 @@ const QRCodeReaderPage = () => {
     });
   };
 
+  const handleStartScanner = useCallback(async () => {
+    setScannerStarted(true);
+    await initializeScanner();
+  }, [initializeScanner])
+
   useEffect(() => {
     setIsMobileDevice(isMobile());
   }, []);
-
-  const renderInitializeButton = useCallback(() => {
-    return (
-      <Button colorScheme="teal" onClick={initializeScanner}>
-        Iniciar leitura
-      </Button>
-    )
-  }, [initializeScanner])
 
   useEffect(() => {
     if (isMobileDevice && scannerRef.current) {
@@ -121,6 +119,17 @@ const QRCodeReaderPage = () => {
       stopScanner();
     };
   }, [isMobileDevice, initializeScanner]);
+
+  useEffect(() => {
+    // eslint-disable-next-line no-undef
+    const saved = sessionStorage.getItem('scanned');
+    if (saved) setScanned(JSON.parse(saved));
+  }, []);
+
+  useEffect(() => {
+    // eslint-disable-next-line no-undef
+    sessionStorage.setItem('scanned', JSON.stringify(scanned));
+  }, [scanned]);
 
   const handleConfirm = () => {
     navigate('/feedback', { state: { students: scanned } });
@@ -148,6 +157,16 @@ const QRCodeReaderPage = () => {
     )
   }
 
+  const renderInitializeButton = useCallback(() => {
+    return (
+      <HStack justify="center" mt={6}>
+        <Button colorScheme="teal" onClick={handleStartScanner}>
+          Iniciar Leitura
+        </Button>
+      </HStack>
+    )
+  }, [handleStartScanner])
+
   const renderAlertInfo = () => {
     if (!isMobileDevice) {
       return (
@@ -156,6 +175,8 @@ const QRCodeReaderPage = () => {
         </HStack>
       )
     };
+
+    if (!scannerStarted) return renderInitializeButton();
 
     return (
       <>
