@@ -13,24 +13,14 @@ const isMobile = () => {
 }
 
 const QRCodeReaderPage = () => {
-  const toast = useToast();
-  const navigate = useNavigate();
   const scannerRef = useRef(null);
-  const lastScanTimeRef = useRef(0);
   const html5QrCodeRef = useRef(null);
   const [scanned, setScanned] = useState([]);
   const [isMobileDevice, setIsMobileDevice] = useState(true);
+  const toast = useToast();
+  const navigate = useNavigate();
 
   const handleScanSuccess = useCallback((decodedText) => {
-    const now = Date.now();
-    const scanCooldown = 2000;
-
-    if (now - lastScanTimeRef.current < scanCooldown) {
-      return;
-    }
-
-    lastScanTimeRef.current = now;
-
     if (!scanned.includes(decodedText)) {
       setScanned((prev) => [...prev, decodedText]);
       toast({
@@ -50,11 +40,11 @@ const QRCodeReaderPage = () => {
 
   const renderGenericErrorToast = useCallback((err) => {
     toast({
-      duration: 4000,
-      status: 'error',
-      isClosable: true,
       title: 'Erro ao acessar a câmera',
       description: err.message || 'Verifique as permissões e tente novamente.',
+      status: 'error',
+      duration: 4000,
+      isClosable: true,
     });
   }, [toast]);
 
@@ -92,11 +82,11 @@ const QRCodeReaderPage = () => {
   const handleClearScanned = () => {
     setScanned([]);
     toast({
+      title: 'Lista limpa',
+      description: 'Todos os registros foram removidos.',
       status: 'info',
       duration: 3000,
       isClosable: true,
-      title: 'Lista limpa',
-      description: 'Todos os registros foram removidos.',
     });
   };
 
@@ -112,20 +102,7 @@ const QRCodeReaderPage = () => {
     return () => {
       stopScanner();
     };
-  }, [isMobileDevice, initializeScanner]);
-
-  useEffect(() => {
-    // eslint-disable-next-line no-undef
-    sessionStorage.setItem('scanned', JSON.stringify(scanned));
-  }, [scanned]);
-
-  useEffect(() => {
-    // eslint-disable-next-line no-undef
-    const saved = sessionStorage.getItem('scanned');
-    if (saved) {
-      setScanned(JSON.parse(saved));
-    }
-  }, []);
+  }, [initializeScanner, isMobileDevice]);
 
   const handleConfirm = () => {
     navigate('/feedback', { state: { students: scanned } });
@@ -165,15 +142,15 @@ const QRCodeReaderPage = () => {
     return (
       <>
         <Box
-          m="auto"
-          w="100%"
           id="reader"
-          maxW="400px"
-          border="2px"
           ref={scannerRef}
+          w="100%"
+          maxW="400px"
+          m="auto"
+          border="2px"
+          borderColor="gray.300"
           borderRadius="md"
           overflow="hidden"
-          borderColor="gray.300"
         />
         {renderButtons()}
       </>
